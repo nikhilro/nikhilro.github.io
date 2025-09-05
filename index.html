@@ -134,7 +134,7 @@
       /* Content styles */
       .content h1 {
         font-size: 24px;
-        margin-bottom: 24px;
+        margin-bottom: 8px;
       }
       
       .content h2 {
@@ -148,6 +148,12 @@
         margin-bottom: 12px;
         font-size: 14px;
         color: var(--fg);
+      }
+      
+      .reading-info {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 24px;
       }
       
       /* Mobile layout */
@@ -195,7 +201,7 @@
         
         .content h1 {
           font-size: 28px;
-          margin-bottom: 28px;
+          margin-bottom: 10px;
         }
         
         .content h2 {
@@ -208,6 +214,11 @@
           font-size: 15px;
           margin-bottom: 14px;
           line-height: 1.6;
+        }
+        
+        .reading-info {
+          font-size: 14px;
+          margin-bottom: 28px;
         }
       }
     </style>
@@ -234,6 +245,7 @@
     <main class="content-area">
       <article class="content" id="essay-20250901-visions-of-future-2035">
         <h1>Visions of Future: 2035</h1>
+        <div class="reading-info" id="reading-info-essay-20250901"></div>
         
         <h2>1. Personal Robotics</h2>
         <p>Anya. She's our 3 year old angel.</p>
@@ -296,5 +308,36 @@
         <p>It's ironic. AI ate the work, and somehow it gave us back community.</p>
       </article>
     </main>
+    
+    <script>
+      // Calculate word count and reading time
+      function calculateReadingInfo() {
+        const articles = document.querySelectorAll('.content');
+        
+        articles.forEach(article => {
+          // Get all text content from paragraphs in the article
+          const paragraphs = article.querySelectorAll('p');
+          let wordCount = 0;
+          
+          paragraphs.forEach(p => {
+            const text = p.textContent || '';
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCount += words.length;
+          });
+          
+          // Calculate reading time (assuming 200 words per minute)
+          const readingTime = Math.ceil(wordCount / 200);
+          
+          // Update the reading info div
+          const readingInfo = article.querySelector('.reading-info');
+          if (readingInfo) {
+            readingInfo.textContent = `${wordCount.toLocaleString()} words · ${readingTime} min read`;
+          }
+        });
+      }
+      
+      // Run on page load
+      document.addEventListener('DOMContentLoaded', calculateReadingInfo);
+    </script>
   </body>
 </html>
