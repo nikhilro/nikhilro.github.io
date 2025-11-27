@@ -66,23 +66,14 @@
         display: none;
       }
       
-      /* Show visions by default */
-      #essay-20250901-visions-of-future-2035 {
-        display: block;
-      }
-      
-      /* When any content is targeted, hide all others */
+      /* Show targeted content */
       .content:target {
         display: block;
       }
       
-      .content:target ~ .content {
-        display: none;
-      }
-      
-      /* Hide visions when another article is targeted */
-      :target ~ #essay-20250901-visions-of-future-2035 {
-        display: none;
+      /* Show visions by default only when nothing is targeted */
+      .content-area:not(:has(.content:target)) #essay-20250901-visions-of-future-2035 {
+        display: block;
       }
       
       h1 {
@@ -197,6 +188,7 @@
           padding: 32px 20px;
           max-width: 450px;
           margin: 0 auto;
+          min-height: 100vh;
         }
         
         .content h1 {
@@ -230,22 +222,37 @@
       
       <ul style="margin-top: 24px;">
         <li>
+          <time datetime="2025-11-19">19NOV2025</time><br>
+          <a href="#essay-20251119-gratitude-journal">good work outlives us</a>
+        </li>
+        <li>
           <time datetime="2025-09-01">01SEP2025</time><br>
           <a href="#essay-20250901-visions-of-future-2035">Visions of Future: 2035</a>
         </li>
-        <!-- Add more writings here in the future:
-        <li>
-          <time datetime="YYYY-MM-DD">DDMMMYYYY</time><br>
-          <a href="#article-id">Article Title</a>
-        </li>
-        -->
       </ul>
     </nav>
     
     <main class="content-area">
+      <article class="content" id="essay-20251119-gratitude-journal">
+        <h1>good work outlives us</h1>
+        <div class="reading-info" data-date="19NOV2025"></div>
+        
+        <p><em>below is a note i sent to the team in gratitude of working with them</em></p>
+        
+        <p>recently, a yc founder friend told me their consumer app with more than 2 million active users was down for four days because mongodb botched a migration and did not help.</p>
+        
+        <p>a year ago this week, i was waking up at 4 am every day because our infra was on fire. every incident was fixed in under two hours. we would not have survived what they went through.</p>
+        
+        <p>i had never run infra in my life. i beam knowing the choices i made held up back then and became the starting point for the world-class infra team we have now. there is a special kind of pride in doing something so well that it outlives you, and other people are excited to build on top of it.</p>
+        
+        <p>since then, we have grown from 6 to 48. each of you make choices every day that lay foundations for the company, and these foundations will outlive you. maybe it is the recruiting experience that candidates will feel for years. maybe it is a product surface that becomes a core part of how human interfaces get deployed.</p>
+        
+        <p>i'm filled with a lot of joy and a little disbelief to see so many people come together to build this generational company with me!</p>
+      </article>
+      
       <article class="content" id="essay-20250901-visions-of-future-2035">
         <h1>Visions of Future: 2035</h1>
-        <div class="reading-info" id="reading-info-essay-20250901"></div>
+        <div class="reading-info" data-date="01SEP2025"></div>
         
         <h2>1. Personal Robotics</h2>
         <p>Anya. She's our 3 year old angel.</p>
@@ -331,13 +338,35 @@
           // Update the reading info div
           const readingInfo = article.querySelector('.reading-info');
           if (readingInfo) {
-            readingInfo.textContent = `${wordCount.toLocaleString()} words · ${readingTime} min read`;
+            const date = readingInfo.dataset.date || '';
+            readingInfo.textContent = `${date} · ${wordCount.toLocaleString()} words · ${readingTime} min read`;
           }
         });
       }
       
       // Run on page load
       document.addEventListener('DOMContentLoaded', calculateReadingInfo);
+      
+      // Handle mobile scroll behavior
+      function scrollToArticle() {
+        if (window.innerWidth <= 768 && window.location.hash) {
+          const target = document.querySelector(window.location.hash);
+          if (target && target.classList.contains('content')) {
+            setTimeout(() => {
+              // Get sidebar height and scroll past it
+              const sidebar = document.querySelector('.sidebar');
+              const scrollPos = sidebar ? sidebar.offsetHeight : 0;
+              window.scrollTo(0, scrollPos);
+            }, 50);
+          }
+        }
+      }
+      
+      window.addEventListener('hashchange', scrollToArticle);
+      // Also run on initial load if hash is present
+      if (window.location.hash) {
+        window.addEventListener('load', scrollToArticle);
+      }
     </script>
   </body>
 </html>
