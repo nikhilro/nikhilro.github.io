@@ -159,6 +159,41 @@
         margin-bottom: 24px;
       }
       
+      .content.takeoff {
+        max-width: 960px;
+      }
+
+      .takeoff p {
+        max-width: 450px;
+      }
+
+      .takeoff figure {
+        margin: 24px 0 0;
+      }
+
+      .takeoff figure a {
+        display: block;
+      }
+
+      .takeoff img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .takeoff summary {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      @media (min-width: 769px) {
+        .content.takeoff {
+          padding-right: 32px;
+        }
+      }
+
       /* Mobile layout */
       @media (max-width: 768px) {
         body {
@@ -239,6 +274,10 @@
       
       <ul style="margin-top: 24px;">
         <li>
+          <time datetime="2026-11-23">23NOV2026</time><br>
+          <a href="#essay-20261123-the-ai-takeoff-i-expect">the ai takeoff i expect</a>
+        </li>
+        <li>
           <time datetime="2026-03-19">19MAR2026</time><br>
           <a href="#essay-20260319-996-is-the-wrong-culture-at-scale">996 is the wrong culture at scale</a>
         </li>
@@ -254,6 +293,39 @@
     </nav>
     
     <main class="content-area">
+      <article class="content takeoff" id="essay-20261123-the-ai-takeoff-i-expect">
+        <h1>the ai takeoff i expect</h1>
+        <div class="reading-info" data-date="23NOV2026"></div>
+        <p>human intelligence has been a bottleneck on how fast we can make progress. i think ai can learn to do ai research because it can run experiments and verify whether its ideas work. once a model learns ai research, progress can happen at increasingly faster timelines.</p>
+        <figure>
+          <a href="https://youtu.be/1NHPDzpfR6Y?si=NHh3txUuSM7mv6qj&amp;t=1663" aria-label="Watch the verifiable proxies video on YouTube at 27:43">
+            <img src="assets/verifiable-proxies.png" width="2047" height="606" alt="Verifiable proxies for pre-training, post-training, and inference efficiency.">
+          </a>
+          <figcaption>
+            <details>
+              <summary>read graphic as text</summary>
+              <h2>Pre-training</h2>
+              <ul>
+                <li>Perplexity on a held-out corpus</li>
+                <li>Predicting which small-scale wins still hold at large scale</li>
+              </ul>
+              <h2>Post-training</h2>
+              <ul>
+                <li>In-context learning speed</li>
+                <li>Performance on held-out environments</li>
+                <li>Data efficiency of RL algorithms</li>
+                <li>Benchmarks of AI R&amp;D capability</li>
+              </ul>
+              <h2>Inference efficiency</h2>
+              <ul>
+                <li>MFU (model FLOPs utilization)</li>
+                <li>KV cache size per token</li>
+              </ul>
+            </details>
+          </figcaption>
+        </figure>
+      </article>
+
       <article class="content" id="essay-20260319-996-is-the-wrong-culture-at-scale">
         <h1>996 is the wrong culture at scale</h1>
         <div class="reading-info" data-date="19MAR2026"></div>
